@@ -12,22 +12,11 @@ class Feedback extends Component {
       bad: 0,
    };
 
-   statisticsUpdate = e => {
-      if (e.target.id === 'Good') {
-         this.setState(prevState => ({
-            good: prevState.good + 1,
-         }));
-      }
-      if (e.target.id === 'Neutral') {
-         this.setState(prevState => ({
-            neutral: prevState.neutral + 1,
-         }));
-      }
-      if (e.target.id === 'Bad') {
-         this.setState(prevState => ({
-            bad: prevState.bad + 1,
-         }));
-      }
+   // [options]: state[options] +1
+   onLeaveFeedback = (label) => {
+      this.setState(prevState => ({
+         [label]: prevState[label] + 1,
+      }));
    };
 
    countTotalFeedback = () => {
@@ -44,7 +33,7 @@ class Feedback extends Component {
       return (
          <div className={css.feedback__all}>
             <Section title="Please leave feedback">
-               <FeedbackOptions onLeaveFeedback={this.statisticsUpdate} />
+               <FeedbackOptions options={['good', 'neutral','bad' ]} onLeaveFeedback={this.onLeaveFeedback} />
             </Section>
 
             {this.countTotalFeedback() ? (
